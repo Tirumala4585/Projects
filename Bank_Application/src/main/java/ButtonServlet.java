@@ -34,6 +34,11 @@ public class ButtonServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("SendMoney.jsp");
 			rd.forward(request, response);
 		}
+	        else if{selectedAction.equals("Statement")
+		{
+			RequestDispatcher rd = request.getRequestDispatcher("Statement.jsp");
+			rd.forward(request,response);
+		}	
 		else
 		{
 			response.setContentType("text/html");
