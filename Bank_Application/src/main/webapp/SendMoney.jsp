@@ -13,33 +13,31 @@
  <%UserDTO user = (UserDTO)session.getAttribute("user");
   if(user!=null)
   { 
-    int account_Id = Integer.parseInt((String)request.getAttribute("accountId"));
-    BankDAO dao = new BankDAO();
-    BankDTO dto=dao.getBalance(account_Id);	
-    %>
-    <h1>Send Money</h1> 
-    <form action="http://localhost:8081/Bank_Application/SendMoneyServlet" method="post">
-      <input type="hidden" name="account_id" value="<%= account_Id %>">
-    <table>
-        <tr>
-            <th>Source Account No:<%= dto.getAccountNo()%></th>
-        </tr>
-        <tr>   
-            <th>Target Account No: <input type="text" name="recipient_account" required></th>
-        </tr> 
-        <tr>    
-            <th> Amount to Transfer: <input type="text" name="amount" required></th>
-        </tr>   
-        <tr> 
-            <th> <input type="submit" value="Send"></th>
-        </tr>    
-      </table>     
-    </form>
+       int account_id = Integer.parseInt((String)request.getAttribute("accountId"));
+       String account_no = (String)request.getAttribute("accountNo");%>
+       <h1>Send Money</h1> 
+       <form action="SendMoneyServlet" method="post">
+       <input type="hidden" name="account_id" value=<%= account_id%>>
+       <input type="hidden" name="account_no" value=<%= account_no%>>
+       <table>
+          <tr>
+              <th>Source Account No:<%= account_no%></th>
+          </tr>
+          <tr>   
+             <th>Target Account No:<input type="text" name="target_account" required></th>
+          </tr> 	
+          <tr>    
+             <th>Amount to Transfer:<input type="text" name="amount" required></th>
+          </tr>   
+          <tr> 
+             <th> <input type="submit" value="Send"></th>
+          </tr>    
+       </table>     
+       </form>
   <%}
   else
   {
 	  response.sendRedirect("Login.jsp");
   }%>
-   
 </body>
 </html>
