@@ -33,28 +33,25 @@ public class LoginServlet extends HttpServlet {
 		String userName=request.getParameter("uname");
 		String password=request.getParameter("pass");
 		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
 		BankDAO dao = new BankDAO();
 		UserDTO user = dao.getUserDetails(userName, password);
 		if(user!=null) {
 		if(userName.equals(user.getUserName()) && password.equals(user.getPassword())){
 			HttpSession session = request.getSession();
 			session.setAttribute("user",user); 
-			request.setAttribute("user" ,user);
-			RequestDispatcher rd = request.getRequestDispatcher("Home.jsp");
-			rd.forward(request,response);
+			RequestDispatcher rd = request.getRequestDispatcher("HomeServlet");
+		    rd.forward(request,response);
 		}
 		else {
-			RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");
-			rd.include(request, response);
+			response.sendRedirect("Login.jsp");
 		}
 		}
 		else {
-			out.print("Loggin Details are failed");
+			PrintWriter out = response.getWriter();
+			out.print("Login Details are failed");
 			RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");
 			rd.include(request, response);
 		}
-		
 	}
 
 }
