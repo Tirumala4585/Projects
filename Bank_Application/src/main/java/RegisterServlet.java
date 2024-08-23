@@ -12,10 +12,6 @@ import java.io.PrintWriter;
 import com.bank.bankdao.BankDAO;
 import com.bank.userdto.UserDTO;
 
-
-
-
-
 /**
  * Servlet implementation class RegisterServlet
  */
@@ -46,12 +42,12 @@ public class RegisterServlet extends HttpServlet {
 		userdto.setPhno(phoneNo);
 		userdto.setEmail(email);
 		userdto.setAddress(address);
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
 		if(dao.setUserDetails(userdto)) {
 			response.sendRedirect("Login.jsp");
 		}
 		else {
+			PrintWriter out = response.getWriter(); 
+			response.setContentType("text/html");
 			out.print("Your registration is failed");
 			RequestDispatcher rd = request.getRequestDispatcher("Registration.jsp");
 			rd.include(request, response);
